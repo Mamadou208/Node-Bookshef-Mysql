@@ -8,7 +8,7 @@ var saveCity = function (req, res) {
     new Model.City({
         id : req.body.id,
         name: req.body.name,
-        state_id: req.body.state_id,
+        state_id: req.body.state_id
     }).save()
         .then(function (city) {
             res.json(city);
@@ -31,26 +31,26 @@ var getAllCities = function (req, res) {
 
 /* Delete a city */
 var deleteCity = function (req, res) {
-    var isbn = req.params.id;
-    new Model.City().where('ISBN', isbn)
+    var cityId = req.params.id;
+    new Model.City().where('id', cityId)
         .destroy()
         .catch(function (error) {
             console.log(error);
-            res.send('An error occured');
+            res.status(500).json({error: true, data: {message: error.message}});
         });
 };
 
 /* Get a city */
 var getCity = function (req, res) {
-    var isbn = req.params.id;
-    new Model.City().where('ISBN', isbn)
-    //.fetch()
-        .fetch({withRelated: ["states"]})
+    var cityId = req.params.id;
+    new Model.City().where('id', cityId)
+        .fetch()
+        //.fetch({withRelated: ["states"]})
         .then(function (cities) {
             res.json(cities);
         }).catch(function (error) {
         console.log(error);
-        res.send('An error occured');
+        res.status(500).json({error: true, data: {message: error.message}});
     });
 };
 

@@ -5,22 +5,23 @@ var bookshelf = require('./../config/db').bookshelf;
 
 
 var City = bookshelf.Model.extend({
-    tableName: 'cities',
+    tableName: 'cities'
 });
 
 var Country = bookshelf.Model.extend({
     tableName: 'countries',
+
     states: function () {
-        return this.belongsToMany(State, 'country_id');
+        return this.hasMany(State, 'country_id')
     }
 });
 
 var State = bookshelf.Model.extend({
     tableName: 'states',
-    cities: function () {
-        return this.belongsToMany(City, 'state_id');
-    }
 
+    cities: function () {
+        return this.hasMany(City, 'state_id');
+    }
 });
 
 module.exports = {

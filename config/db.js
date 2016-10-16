@@ -7,8 +7,8 @@ var DBConfig = {
     connection: {
         host: 'localhost',
         user: 'root',
-        password: 'admin',
-        database: 'simple_bookshelf',
+        password: 'Passw0rd',
+        database: 'world',
         charset: 'utf8'
     }
 };

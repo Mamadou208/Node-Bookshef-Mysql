@@ -10,7 +10,7 @@ var saveState = function (req, res) {
             res.json(genre);
         }).catch(function (error) {
         console.log(error);
-        res.send('An error occured');
+        res.status(500).json({error: true, data: {message: error.message}});
     });
 };
 
@@ -21,31 +21,31 @@ var getStates = function (req, res) {
             res.json(states);
         }).catch(function (error) {
         console.log(error);
-        res.send('An error occured');
+        res.status(500).json({error: true, data: {message: error.message}});
     });
 };
 
 /* Delete a book */
 var deleteState = function (req, res) {
-    var genreId = req.params.id;
-    new Model.State().where('genreId', genreId)
+    var Id = req.params.id;
+    new Model.State().where('id', Id)
         .destroy()
         .catch(function (error) {
             console.log(error);
-            res.send('An error occured');
+            res.status(500).json({error: true, data: {message: error.message}});
         });
 };
 
 /* Get a book */
 var getState = function (req, res) {
-    var genreId = req.params.id;
-    new Model.State().where('genreId', genreId)
-        .fetch()
+    var Id = req.params.id;
+    new Model.State().where('id', Id)
+        .fetch({withRelated: ["cities"]})
         .then(function (state) {
             res.json(state);
         }).catch(function (error) {
         console.log(error);
-        res.send('An error occured');
+        res.status(500).json({error: true, data: {message: error.message}});
     });
 };
 
